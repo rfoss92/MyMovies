@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, itinital-scale=1">
+  <title>Movie App</title>
+  <link rel="stylesheet" type="text/css" href="/css/styles.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+</head>
+
+<body>
+  <section class="main">
+    <form id='listForm' action="/" method="POST">
+      <input id='createList' name='createList' type="text" maxlength="256" placeholder="Create a List...">
+      <button type="submit"><i class="fas fa-pencil-alt"></i></button>
+    </form>
+
+
+    <form id='searchForm'>
+      <input id='searchTerm' type="text" maxlength="256" placeholder="Search for movies...">
+      <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
+
+    <h1>Your Lists:</h1>
+    <ul id="yourLists">
+      {{#each listArr}}
+        <form id='aListForm' action="/" method="POST">
+          <input type="hidden" id="formControl" name="aListItem" value="{{this}}">
+          <button>{{ this }}</button>
+        </form>      
+      {{/each}}    
+    </ul>
+
+  </section>
+
+  <p id='output'></p>
+
+
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script>let listArr = '{{listArr}}'</script>   
+  <script src="/js/main.js"></script> 
+</body>
+
+</html>
