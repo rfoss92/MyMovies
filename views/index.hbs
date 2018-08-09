@@ -26,8 +26,8 @@
     <ul id="yourLists">
       {{#each listArr}}
         <form id='aListForm' action="/" method="POST">
-          <input type="hidden" id="formControl" name="aListItem" value="{{this}}">
-          <button>{{ this }}</button>
+          <input type="hidden" name="aListItem" value="{{this}}">
+          <button type="submit">{{ this }}</button>
         </form>      
       {{/each}}    
     </ul>
@@ -36,11 +36,18 @@
 
   <p id='output'></p>
 
-
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script>let listArr = '{{listArr}}'</script>   
-  <script src="/js/main.js"></script> 
+  <script>
+    listArr = '{{listArr}}';
+    moviesArr = '{{moviesArr}}';
+    activeList = '{{activeList}}';
+  </script>   
+  <script src="/js/main.js">
+
+
+  </script> 
+ 
 </body>
 
 </html>
