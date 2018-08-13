@@ -22,11 +22,19 @@ let activeList = '';
 // routes
 app.get('/', (req, res) => {
   List.distinct('title').then((lists) => {
-  	listArr = [lists];
-  	activeList = listArr[0][0];	   
+  	listArr = [lists];  
   	res.render('index.hbs', { 
   		listArr: lists,
   		moviesArr,
+ 			activeList 		
+  	});	
+  });  
+});
+app.get('/movie', (req, res) => {
+  List.distinct('title').then((lists) => {
+  	listArr = [lists];
+  	res.render('movie.hbs', { 
+  		listArr: lists,
  			activeList 		
   	});	
   });  
@@ -41,7 +49,7 @@ app.post('/', (req, res) => {
 	  let list = new List({
 	    title: req.body.createList
 	  }).save();
-		res.redirect('back');
+		res.redirect('/');
 
 	// retrieve list
 	} else if (req.body.aListItem) {
@@ -49,16 +57,17 @@ app.post('/', (req, res) => {
 			activeList = req.body.aListItem;
 			moviesArr = [lists[0].items];
    	});
-		res.redirect('back');
+		res.redirect('/');
 
 	// add to list
 	} else if (req.body.movie) {
+		let test = req.body.movie.split(',');
     List.updateOne(
-    	{ 'title': activeList},
-    	{ $addToSet: { 'items': [req.body.movie] } },
+    	{ 'title': test[1]},
+    	{ $addToSet: { 'items': [test[0]] } },
     	{ upsert: true }
     ).then();
-    console.log(req.body);
+		res.redirect('/movie');
 
   // remove from list
 	} else if (req.body) {
@@ -66,10 +75,7 @@ app.post('/', (req, res) => {
 	  List.update(
 		  { 'title': activeList },
 		  { $pull: {'items' : req.body[key] } },
-		).then();
+		).then();	
 	}
 
 });
-
-// create active class
-// be able to select which list to add to

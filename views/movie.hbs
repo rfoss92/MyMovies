@@ -11,7 +11,7 @@
 
 <body>
   <section class="menu">
-    <form id='listForm' method="POST">
+    <form id='listForm' action="/"  method="POST">
       <input id='createList' name='createList' type="text" maxlength="64" placeholder="Create a List...">
       <button type="submit"><i class="fas fa-pencil-alt"></i></button>
     </form>
@@ -36,14 +36,17 @@
 
   <div id='output'></div>
 
-  <script src="//url.to/https://unpkg.com/axios/dist/axios.min.js"></script>
-  <script src="//url.to/https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script>
     listArr = '{{listArr}}';
     moviesArr = '{{moviesArr}}';
     activeList = '{{activeList}}';
-  </script> 
-  <script src="//url.to//js/main.js"></script> 
+  </script>   
+  <script src="/js/main.js"></script> 
+  <script>
+    getMovie();
+  </script>   
  
 </body>
 
