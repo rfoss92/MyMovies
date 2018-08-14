@@ -24,7 +24,6 @@ function movieSelected(id) {
   sessionStorage.setItem('movieId', id);
   window.location = 'movie';
   return false;
-
 }
 function save(movie){
   if ($("#selectList").text() === 'Select List'){
