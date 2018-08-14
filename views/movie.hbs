@@ -4,34 +4,47 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-  <title>Movie App</title>
+<!--   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+ -->  <title>Movie App</title>
   <link rel="stylesheet" type="text/css" href="/css/styles.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 </head>
 
+<header>
+  <section><i class="fas fa-film"></i> Movie Lists </section>
+</header>
+
 <body>
-  <section class="menu">
-    <form id='listForm' action="/"  method="POST">
-      <input id='createList' name='createList' type="text" maxlength="64" placeholder="Create a List...">
-      <button type="submit"><i class="fas fa-pencil-alt"></i></button>
-    </form>
+  <section class="menu grid-container">
+    <div class="grid-item">
+      <form id='listForm' method="POST">
+        <input id='createList' name='createList' type="text" maxlength="64" placeholder="Create a List...">
+        <button type="submit"><i class="fas fa-pencil-alt"></i></button>
+      </form>
 
+      <form id='searchForm'>
+        <input id='searchTerm' type="text" maxlength="64" placeholder="Search for movies...">
+        <button type="submit"><i class="fa fa-search"></i></button>
+      </form>
+    </div>
 
-    <form id='searchForm'>
-      <input id='searchTerm' type="text" maxlength="64" placeholder="Search for movies...">
-      <button type="submit"><i class="fa fa-search"></i></button>
-    </form>
+    <div class="grid-item">
 
-    <h1>Your Lists:</h1>
-    <ul id="yourLists">
-      {{#each listArr}}
-        <form id='aListForm' action="/"  method="POST">
-          <input type="hidden" name="aListItem" value="{{this}}">
-          <button type="submit">{{ this }}</button>
-        </form>
-      {{/each}}
-    </ul>
+      <ul id="yourLists">
+        {{#each listArr}}
+          <li>
+            <form id='aListForm' action="/"  method="POST">
+              <input type="hidden" name="aListItem" value="{{this}}">
+              <button type="submit">{{ this }}</button>
+            </form>
+            <form id='removeForm' action="/"  method="POST">
+              <input type="hidden" name="removeItem" value="{{this}}">
+              <button type="submit"><i class="fas fa-minus"></i></button>
+            </form>
+          </li>
+        {{/each}}
+      </ul>
+    </div>
 
   </section>
 

@@ -1,4 +1,5 @@
 let resultsID = '';
+let listArrDropDown = '';
 
 // display the lists in the dropdown menu
 if (listArr) {
@@ -23,6 +24,7 @@ function movieSelected(id) {
   sessionStorage.setItem('movieId', id);
   window.location = 'movie';
   return false;
+
 }
 function save(movie){
   if ($("#selectList").text() === 'Select List'){
@@ -32,7 +34,9 @@ function save(movie){
   }
 }
 function remove(results){
-  $(`#${results.id}`).text('Removed from list!');
+  $(`#${results.id}`).addClass('oldclass');
+  $(`#undo${results.id}`).addClass('newclass');
+
 }
 function changeList(id) {
   $(`#${resultsID}`).html('<i class="fas fa-star"></i>');
@@ -59,20 +63,27 @@ function getMovies(search) {
   if (search.constructor === Array){
     for (let i = 0; i < search.length; i++) {
       axios.get('http://www.omdbapi.com?i=' + search[i] + '&apikey=72483cf1')
-        .then((response) => {   
+        .then((response) => {
           let results = response.data;
           output += `
             <div class="movie">
               <img src='${results.Poster}'>
               <h2>${results.Title}</h2>
-              <a onclick='movieSelected("${results.imdbID}")' target="_blank">Get Info</a>
+              <a class="getInfo" onclick='movieSelected("${results.imdbID}")' target="_blank">Get Info</a>
               <form action="/" method="POST">
-                  <button type="submit" id='${results.imdbID}' name='${listArr}' value='${results.imdbID}' 
+                  <button class="removeForm" type="submit" id='${results.imdbID}' name='${listArr}' value='${results.imdbID}' 
                     onClick='remove(${results.imdbID})'
                   >
                     <i class="fas fa-minus"></i>
                   </button>
               </form>
+              <form action="/" method="POST">
+                <button class="oldclass" type="submit" id='undo${results.imdbID}' name='movie' value='${results.imdbID}, ${listArr}' 
+                  onClick='save(${results.imdbID})'
+                >
+                  (undo)
+                </button>
+            </form>
             </div>
           `;
         $('#output').html(output);
@@ -87,7 +98,7 @@ function getMovies(search) {
             <div class="movie">
               <img src='${movie.Poster}'>
               <h2>${movie.Title}</h2>
-              <a onclick='movieSelected("${movie.imdbID}")' target="_blank">Get Info</a>
+              <a class="getInfo" onclick='movieSelected("${movie.imdbID}")' target="_blank">Get Info</a>
             </div>
           `;
         })
@@ -105,21 +116,38 @@ function getMovie() {
       resultsID = results.imdbID;
       output += `
         <div class="movie">
-          <img src='${results.Poster}'>
-          <h2>${results.Title}</h2>
-            <form action="/" method="POST">
-                <button type="submit" id='${results.imdbID}' name='movie' value='${results.imdbID}' 
-                  onClick='save(${results.imdbID})'
-                >
-                  <i class="fas fa-star"></i>
-                </button>
-            </form>
-            <div class="dropdown">
-              <button onclick="dropDownFunc()" class="dropbtn" id="selectList">Select List</button>
-              <div id="myDropdown" class="dropdown-content">
-                ${listArrDropDown}
-              </div>
+        <h3>${results.Title}</h3>
+          <div class="grid-container">
+            <div class="grid-item">
+              <img src='${results.Poster}'>
+              <ul><li>
+                <form action="/" method="POST">
+                    <button type="submit" id='${results.imdbID}' name='movie' value='${results.imdbID}' 
+                      onClick='save(${results.imdbID})'
+                    >
+                      <i class="fas fa-star"></i>
+                    </button>
+                </form>
+                <div class="dropdown">
+                  <button onclick="dropDownFunc()" class="dropbtn" id="selectList">Select List</button>
+                  <div id="myDropdown" class="dropdown-content">
+                    ${listArrDropDown}
+                  </div>
+                </div>
+              </ul></li>
             </div>
+            <div class="grid-item">
+              <p>${results.Plot}</p>
+              <p>${results.Year}</p>
+              <p>${results.Genre}</p>
+              <p>Director: ${results.Director}</p>
+              <p>Writer: ${results.Writer}</p>
+              <p>Actors: ${results.Actors}</p>        
+              <p>${results.Awards}</p>
+              <p>${results.Ratings[2].Source}: ${results.Ratings[2].Value}</p>
+              <p>Production: ${results.Production}</p>
+            </div>
+          </div>
         </div>
       `;
     $('#output').html(output);

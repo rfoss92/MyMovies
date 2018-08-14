@@ -59,15 +59,24 @@ app.post('/', (req, res) => {
    	});
 		res.redirect('/');
 
+	// remove list
+	} else if (req.body.removeItem) {
+	  List.remove({'title': req.body.removeItem}).then((lists) => {
+	  	moviesArr = [];
+   	});
+		res.redirect('/');
+
 	// add to list
 	} else if (req.body.movie) {
 		let test = req.body.movie.split(',');
-    List.updateOne(
-    	{ 'title': test[1]},
-    	{ $addToSet: { 'items': [test[0]] } },
-    	{ upsert: true }
-    ).then();
-		res.redirect('/movie');
+		if (test[1]){
+	    List.updateOne(
+	    	{ 'title': test[1]},
+	    	{ $addToSet: { 'items': [test[0]] } },
+	    	{ upsert: true }
+	    ).then();
+		} 
+		res.redirect('back');		
 
   // remove from list
 	} else if (req.body) {
