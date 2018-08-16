@@ -52,16 +52,16 @@ app.post('/', (req, res) => {
 		res.redirect('/');
 
 	// retrieve list
-	} else if (req.body.aListItem) {
-	  List.find({'title': req.body.aListItem}).then((lists) => {
-			activeList = req.body.aListItem;
+	} else if (req.body.listSelect) {
+	  List.find({'title': req.body.listSelect}).then((lists) => {
+			activeList = req.body.listSelect;
 			moviesArr = [lists[0].items];
    	});
 		res.redirect('/');
 
 	// remove list
-	} else if (req.body.removeItem) {
-	  List.remove({'title': req.body.removeItem}).then((lists) => {
+	} else if (req.body.listRemove) {
+	  List.remove({'title': req.body.listRemove}).then((lists) => {
 	  	moviesArr = [];
    	});
 		res.redirect('/');

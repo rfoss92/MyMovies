@@ -33,8 +33,8 @@ function save(movie){
   }
 }
 function remove(results){
-  $(`#${results.id}`).addClass('oldclass');
-  $(`#undo${results.id}`).addClass('newclass');
+  $(`#${results.id}`).addClass('hide');
+  $(`#undo${results.id}`).addClass('unhide');
 
 }
 function changeList(id) {
@@ -65,19 +65,19 @@ function getMovies(search) {
         .then((response) => {
           let results = response.data;
           output += `
-            <div class="movie">
+            <div class="output-info">
               <img src='${results.Poster}'>
               <h2>${results.Title}</h2>
-              <a class="getInfo" onclick='movieSelected("${results.imdbID}")' target="_blank">Get Info</a>
-              <form action="/" method="POST">
-                  <button class="removeForm" type="submit" id='${results.imdbID}' name='${listArr}' value='${results.imdbID}' 
+              <a class="output-getInfo" onclick='movieSelected("${results.imdbID}")' target="_blank">Get Info</a>
+              <form class="List-RemoveForm" action="/" method="POST">
+                  <button class="List-Remove" type="submit" id='${results.imdbID}' name='${listArr}' value='${results.imdbID}' 
                     onClick='remove(${results.imdbID})'
                   >
                     <i class="fas fa-minus"></i>
                   </button>
               </form>
-              <form action="/" method="POST">
-                <button class="oldclass" type="submit" id='undo${results.imdbID}' name='movie' value='${results.imdbID}, ${listArr}' 
+              <form class="List-UndoForm" action="/" method="POST">
+                <button class="hide" type="submit" id='undo${results.imdbID}' name='movie' value='${results.imdbID}, ${listArr}' 
                   onClick='save(${results.imdbID})'
                 >
                   (undo)
@@ -94,10 +94,10 @@ function getMovies(search) {
         let results = response.data.Search;
         $.each(results, (index, movie) => {
           output += `
-            <div class="movie">
+            <div class="output-info">
               <img src='${movie.Poster}'>
               <h2>${movie.Title}</h2>
-              <a class="getInfo" onclick='movieSelected("${movie.imdbID}")' target="_blank">Get Info</a>
+              <a class="output-getInfo" onclick='movieSelected("${movie.imdbID}")' target="_blank">Get Info</a>
             </div>
           `;
         })
@@ -114,8 +114,8 @@ function getMovie() {
       let results = response.data;
       resultsID = results.imdbID;
       output += `
-        <div class="movie">
-        <h3>${results.Title}</h3>
+        <div class="output-info">
+        <h1>${results.Title}</h1>
           <div class="grid-container">
             <div class="grid-item">
               <img src='${results.Poster}'>
