@@ -18,6 +18,7 @@ app.set('view engine', 'hbs');
 let listArr = [];
 let moviesArr = [];
 let activeList = '';
+let output = '';
 
 // routes
 app.get('/', (req, res) => {
@@ -35,12 +36,25 @@ app.get('/movie', (req, res) => {
   	listArr = [lists];
   	res.render('movie.hbs', { 
   		listArr: lists,
+  		moviesArr,  		
  			activeList 		
   	});	
   });  
 });
 
-// post
+// posts
+app.post('/movie', (req, res) => {
+
+	// create list
+	if (req.body.createList) {
+		listArr.push(req.body.createList); 
+	  let list = new List({
+	    title: req.body.createList
+	  }).save();
+		res.redirect('/movie');
+	}
+});
+
 app.post('/', (req, res) => {
 
 	// create list
@@ -56,6 +70,7 @@ app.post('/', (req, res) => {
 	  List.find({'title': req.body.listSelect}).then((lists) => {
 			activeList = req.body.listSelect;
 			moviesArr = [lists[0].items];
+			output = '';
    	});
 		res.redirect('/');
 

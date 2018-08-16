@@ -114,7 +114,7 @@ function getMovie() {
       let results = response.data;
       resultsID = results.imdbID;
       output += `
-        <div class="output-info">
+        <div class="output-info output-info2">
         <h1>${results.Title}</h1>
           <div class="grid-container">
             <div class="grid-item">
@@ -149,6 +149,6 @@ function getMovie() {
           </div>
         </div>
       `;
-    $('#output').html(output);
+    $('#output-info').html(output);
     }).catch((err) => console.log(err));
 }
