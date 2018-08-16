@@ -154,13 +154,22 @@ input[type=text] {
 
 
 @media only screen and (min-width: 600px) {
-  .movie {
+  #output {
+    margin-left: 280px;
+  }
+  .output-info {
     padding: 20px;
     max-width: 60%;
     font-size: 1rem;   
   }
-  #output {
-    margin-left: 280px;
+  .grid-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    padding: 10px;
+  }
+  .grid-item {
+    padding: 10px;
+    text-align: left;
   }
   body {
     padding-top: 50px;
