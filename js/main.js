@@ -35,7 +35,6 @@ function save(movie){
 function remove(results){
   $(`#${results.id}`).addClass('hide');
   $(`#undo${results.id}`).addClass('unhide');
-
 }
 function changeList(id) {
   $(`#${resultsID}`).html('<i class="fas fa-star"></i>');
@@ -59,6 +58,8 @@ window.onclick = function(e) {
 
 function getMovies(search) {
   let output = '';
+
+  // displays selected list
   if (search.constructor === Array){
     for (let i = 0; i < search.length; i++) {
       axios.get('http://www.omdbapi.com?i=' + search[i] + '&apikey=72483cf1')
@@ -88,6 +89,8 @@ function getMovies(search) {
         $('#output').html(output);
         }).catch((err) => console.log(err));
     }
+
+  // displays search results
   } else {
     axios.get('http://www.omdbapi.com?s=' + search + '&apikey=72483cf1')
       .then((response) => {
@@ -106,6 +109,7 @@ function getMovies(search) {
   }
 }
 
+// displays info about the movie
 function getMovie() {
   let search = sessionStorage.getItem('movieId');
   let output = '';
