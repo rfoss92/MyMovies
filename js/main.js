@@ -124,29 +124,29 @@ function getMovie() {
             <div class="grid-item">
               <img src='${results.Poster}'>
               <ul><li>
-                <form action="/" method="POST">
-                    <button type="submit" id='${results.imdbID}' name='movie' value='${results.imdbID}' 
-                      onClick='save(${results.imdbID})'
-                    >
-                      <i class="fas fa-star"></i>
-                    </button>
-                </form>
                 <div class="dropdown">
                   <button onclick="dropDownFunc()" class="dropbtn" id="selectList">Select List</button>
                   <div id="myDropdown" class="dropdown-content">
                     ${listArrDropDown}
                   </div>
                 </div>
+                <form action="/" method="POST">
+                    <button aria-label="Add to selected list" type="submit" id='${results.imdbID}' name='movie' value='${results.imdbID}' 
+                      onClick='save(${results.imdbID})'
+                    >
+                      <i class="fas fa-star"></i>
+                    </button>
+                </form>                
               </ul></li>
             </div>
             <div class="grid-item">
-              <p>${results.Plot}</p>
-              <p>${results.Year}</p>
-              <p>${results.Genre}</p>
+              <p>Plot Summary: ${results.Plot}</p>
+              <p>Released: ${results.Year}</p>
+              <p>Genres: ${results.Genre}</p>
               <p>Director: ${results.Director}</p>
               <p>Writer: ${results.Writer}</p>
               <p>Actors: ${results.Actors}</p>        
-              <p>${results.Awards}</p>
+              <p>Awards: ${results.Awards}</p>
               <p>${results.Ratings[2].Source}: ${results.Ratings[2].Value}</p>
               <p>Production: ${results.Production}</p>
             </div>
