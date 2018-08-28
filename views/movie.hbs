@@ -4,8 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-  <title>Movie App</title>
+<!--   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+ -->  <title>Movie App</title>
   <link rel="stylesheet" type="text/css" href="/css/styles.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 </head>
@@ -17,12 +17,12 @@
       
       <form id='listForm' method="POST">
         <input id='createList' name='createList' type="text" maxlength="64" placeholder="Create a List...">
-        <button type="submit"><i class="fas fa-pencil-alt"></i></button>
+        <button type="submit" aria-label="Create list"><i class="fas fa-pencil-alt"></i></button>
       </form>
 
       <form id='searchForm'>
         <input id='searchTerm' type="text" maxlength="64" placeholder="Search for movies...">
-        <button type="submit"><i class="fa fa-search"></i></button>
+        <button type="submit" aria-label="Search movies"><i class="fa fa-search"></i></button>
       </form>
 
       <ul id="yourLists">
@@ -34,7 +34,7 @@
             </form>
             <form id='listRemove' action="/"  method="POST">
               <input type="hidden" name="listRemove" value="{{this}}">
-              <button class='List-Remove' type="submit"><i class="fas fa-minus"></i></button>
+              <button class='List-Remove' type="submit" aria-label="Remove List"><i class="fas fa-minus"></i></button>
             </form>
           </li>
         {{/each}}
