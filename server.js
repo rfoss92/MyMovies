@@ -16,7 +16,7 @@ app.set('view engine', 'hbs');
 
 // variables
 let listArr = [];
-let moviesArr = [];
+let moviesInList = [];
 let activeList = '';
 let output = '';
 
@@ -26,80 +26,57 @@ app.get('/', (req, res) => {
   	listArr = [lists];  
   	res.render('index.hbs', { 
   		listArr: lists,
-  		moviesArr,
- 			activeList 		
-  	});	
-  });  
-});
-app.get('/movie', (req, res) => {
-  List.distinct('title').then((lists) => {
-  	listArr = [lists];
-  	res.render('movie.hbs', { 
-  		listArr: lists,
-  		moviesArr,  		
+  		moviesInList,
  			activeList 		
   	});	
   });  
 });
 
 // posts
-app.post('/movie', (req, res) => {
-
-	// create list
-	if (req.body.createList) {
-		listArr.push(req.body.createList); 
-	  let list = new List({
-	    title: req.body.createList
-	  }).save();
-		res.redirect('/movie');
-	}
-});
-
 app.post('/', (req, res) => {
-
-	// create list
-	if (req.body.createList) {
-		listArr.push(req.body.createList); 
-	  let list = new List({
-	    title: req.body.createList
-	  }).save();
-		res.redirect('/');
-
-	// retrieve list
-	} else if (req.body.listSelect) {
-	  List.find({'title': req.body.listSelect}).then((lists) => {
-			activeList = req.body.listSelect;
-			moviesArr = [lists[0].items];
-			output = '';
-   	});
-		res.redirect('/');
-
-	// remove list
-	} else if (req.body.listRemove) {
-	  List.remove({'title': req.body.listRemove}).then((lists) => {
-	  	moviesArr = [];
-   	});
-		res.redirect('/');
-
-	// add to list
-	} else if (req.body.movie) {
-		let test = req.body.movie.split(',');
-		if (test[1]){
-	    List.updateOne(
-	    	{ 'title': test[1]},
-	    	{ $addToSet: { 'items': [test[0]] } },
-	    	{ upsert: true }
-	    ).then();
-		} 
-		res.redirect('back');		
-
-  // remove from list
-	} else if (req.body) {
-		for (var key in req.body) {}
-	  List.update(
-		  { 'title': activeList },
-		  { $pull: {'items' : req.body[key] } },
-		).then();	
-	}
-
+	(req.body.createList) ? (createList(req, res))
+	: (req.body.retrieveList) ? (retrieveList(req, res))
+	: (req.body.removeList) ? (removeList(req, res))
+	: (req.body.movie) ? (addToList(req, res))
+	: (removeFromList(req, res));
 });
+
+// functions
+function createList(req, res){
+	listArr.push(req.body.createList); 
+  let list = new List({
+    title: req.body.createList
+  }).save();
+	res.redirect('/');
+}
+function retrieveList(req, res){
+  List.find({'title': req.body.retrieveList}).then((lists) => {
+		activeList = req.body.retrieveList;
+		moviesInList = [lists[0].items];
+		output = '';
+ 	});
+	res.redirect('/');
+}
+function removeList(req, res){
+  List.remove({'title': req.body.removeList}).then((lists) => {
+  	moviesInList = [];
+ 	});
+	res.redirect('/');	
+}
+function addToList(req, res){
+	let splitMovies = req.body.movie.split(',');
+	if (splitMovies[1]){
+    List.updateOne(
+    	{ 'title': splitMovies[1]},
+    	{ $addToSet: { 'items': [splitMovies[0]] } },
+    	{ upsert: true }
+    ).then();
+	} 
+}
+function removeFromList(req, res){
+	for (var key in req.body) {}
+  List.update(
+	  { 'title': activeList },
+	  { $pull: {'items' : req.body[key] } },
+	).then();		
+}
