@@ -111,12 +111,6 @@ button {
   border: none;
   cursor: pointer;
 }
-.hide { 
-  display: none; 
-}
-.unhide { 
-  display: block; 
-}
 
 /* DROPDOWN */
 
@@ -156,6 +150,9 @@ button {
 }
 .dropdown a:hover {
   background-color: #ddd;
+}
+.hide { 
+  display: none; 
 }
 .show {
   display: block;
