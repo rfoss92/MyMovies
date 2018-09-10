@@ -26,15 +26,15 @@ function changeList(id) {
   $(`#${resultsID}`).val(`${resultsID}, ${id}`);
 }
 function dropDownFunc() {
-  $("#myDropdown").toggleClass("unhide");
+  $("#myDropdown").toggleClass("show");
 }
 window.onclick = function(e) {
   if (!e.target.matches('.dropbtn')) {
     let dropdowns = $(".dropdown-content");
     for (let i = 0; i < dropdowns.length; i++) {
       let openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('unhide')) {
-        openDropdown.classList.remove('unhide');
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
       }
     }
   }
