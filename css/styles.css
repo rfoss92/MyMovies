@@ -53,7 +53,6 @@ li form {
 }
 
 /* OUTPUT */
-
 #output, #output-info {
   margin: 1%;
   display: flex;
@@ -81,7 +80,7 @@ li form {
 }
 h1 {
   font-size: 1rem;
-  text-align: center;  
+  text-align: left;  
 }
 h2 {
   font-size: 1rem;
@@ -173,6 +172,9 @@ button {
 @media only screen and (min-width: 600px) {
   body {
     margin-left: 250px;
+  }
+  h1 {
+    text-align: center;
   }
   .output-info {
     padding: 20px;

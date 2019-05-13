@@ -4,8 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">  
- 
+<!--   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">  
+ -->  
   <title>Movie App</title>
   <link rel="stylesheet" href="../bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="/css/styles.css">
@@ -14,13 +14,23 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-default">
-      <div class="container">
-        <div class="navbar-header">
-          <a class="navbar-brand title" href="/"><i class="fas fa-film"></i> Movie Lists</a>
-        </div>
+  <nav class="navbar navbar-default">
+    <div class="container">
+      <div class="navbar-header">
+        <a class="navbar-brand title" href="/"><i class="fas fa-film"></i> Movie Lists</a>
       </div>
-</nav>
+    </div>
+  </nav>
+    
+  <div class="container">
+    <div class="jumbotron">
+      <h3 class="text-center">Search For Any Movie</h3>
+      <form id='searchForm'>
+        <input id='searchTerm' type="text" maxlength="64" placeholder="Search for movies...">
+        <button type="submit" aria-label="Search movies"><i class="fa fa-search"></i></button>
+      </form>
+    </div>
+  </div>
 
   <section class="sidenav">
       <form id='listForm' method="POST">
@@ -43,18 +53,6 @@
         {{/each}}
       </ul>
   </section>
-    
-  <div class="container">
-    <div class="jumbotron">
-      <h3 class="text-center">Search For Any Movie</h3>
-      <form id='searchForm'>
-        <input id='searchTerm' type="text" maxlength="64" placeholder="Search for movies...">
-        <button type="submit" aria-label="Search movies"><i class="fa fa-search"></i></button>
-      </form>
-    </div>
-  </div>
-
-
 
   <span id="activeList" class="activeListName">{{activeList}}</span>
   <div id='output'></div>
