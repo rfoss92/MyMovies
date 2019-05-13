@@ -2,7 +2,7 @@ body {
   font: bold 16px Tahoma, Arial, sans-serif;
   color: white;
   text-align: center;  
-  background: #00061a;
+  background: black;
   margin: 0;
 }
 
@@ -43,6 +43,12 @@ li form {
 }
 .List-Remove:hover {
   background: red;
+}
+
+/* SEARCH */
+
+#searchTerm {
+  width: 75%;
 }
 
 /* OUTPUT */
@@ -92,13 +98,18 @@ a {
   cursor: pointer;
   font-weight: 900;
 }
+#myDropdown {
+  color: black;
+}
+.navbar a {
+  color: white;  
+}
 
 
 /* MENU OPTIONS */
 
 input[type=text] {
   padding: 6px;
-  margin-left: 6%;  
   font-size: 1rem;
   border: none;
 }
@@ -168,7 +179,7 @@ button {
     font-size: 1rem;   
   }
   .activeListName {
-    margin-left: 270px;
+
   }
   .grid-container {
     display: grid;
@@ -185,8 +196,8 @@ button {
     position: fixed;
     top: 0;
     left: 0;
-    background-color: #294F6D; 
+    background-color: #313131; 
     overflow-x: hidden;
-    padding-top: 20px;
+    padding-top: 56px;
   }
 }
